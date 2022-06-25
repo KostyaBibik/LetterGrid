@@ -7,13 +7,7 @@ using UnityEngine.UI;
 public class GridController : MonoBehaviour
 {
     [SerializeField] private GameObject gridElement;
-
-    [Header("Grid properties")]
-    [SerializeField] private float maxHeight;
-    [SerializeField] private float minHeight;
-    [SerializeField] private float maxWidth;
-    [SerializeField] private float minWidth;
-
+    
     private GridLayoutGroup _gridLayout;
     private RectTransform _rectTransform;
     private float _widthGrid;
@@ -32,19 +26,10 @@ public class GridController : MonoBehaviour
         _widthGrid = _rectTransform.rect.width;
     }
 
-    public void CalculateGrid(int countOnRow, int countOnColumn)
+    public void CalculateGrid(int width, int height)
     {
-        var newGridWidth = countOnRow * _rectElement.width + _gridLayout.spacing.x * countOnRow;
-        var newGridHeight = countOnColumn * _rectElement.height + _gridLayout.spacing.y * countOnColumn;
-        
-        var remainsWidth = maxWidth - newGridWidth;
-        var remainsHeight = maxHeight - newGridHeight;
-        
-        _gridLayout.cellSize += new Vector2(remainsWidth/(countOnRow * _gridLayout.spacing.x), 
-            remainsHeight/(countOnColumn * _gridLayout.spacing.y));
-        _rectTransform.sizeDelta = new Vector2(newGridWidth, newGridHeight);
-        
-        FillGridWithElements(countOnRow * countOnColumn);
+        _rectTransform.sizeDelta = new Vector2(width * _rectElement.width + _gridLayout.spacing.x * width, height * _rectElement.height+ _gridLayout.spacing.y * height);
+        FillGridWithElements(width * height);
     }
 
     private void FillGridWithElements(int countElements)
