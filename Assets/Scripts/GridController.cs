@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,6 +36,7 @@ public class GridController : MonoBehaviour
             countOnColumn * (preferredSizeElement + _gridLayout.spacing.y));
         
         var ratio = Mathf.Min(maxWidth / startSizeGrid.x, maxHeight / startSizeGrid.y);
+        ratio = ratio < 1 ? -ratio : ratio;
         var newCellSize = preferredSizeElement + ratio * coefficientScaleElements;
         
         _gridLayout.cellSize = new Vector2(newCellSize, newCellSize);
@@ -79,6 +78,7 @@ public class GridController : MonoBehaviour
 
         List<Vector3> posesToMix = new List<Vector3>();
         List<Vector3> newPoses = new List<Vector3>();
+        
         foreach (var letter in _createdLetters)
         {
             posesToMix.Add(letter.transform.position);
@@ -89,7 +89,6 @@ public class GridController : MonoBehaviour
             var randomCounter = Random.Range(0, posesToMix.Count);
             if (posesToMix[randomCounter] == letter.transform.position)
             {
-                Debug.Log("Return");
                 yield return StartCoroutine(nameof(MixLetters));
                 yield break;
             }
@@ -98,11 +97,14 @@ public class GridController : MonoBehaviour
             posesToMix.RemoveAt(randomCounter);
         }
 
-        Debug.Log("start Smooth");
         yield return StartCoroutine(nameof(SmoothReplaceElement), newPoses.ToArray());
-        Debug.Log("end Smooth");
     }
 
+    public bool CanToMixLetters()
+    {
+        return _createdLetters.Count > 1;
+    }
+    
     private IEnumerator SmoothReplaceElement(Vector3[] targetPoses)
     {
         var startPoses = new List<Vector3>();
