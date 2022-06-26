@@ -27,5 +27,17 @@ public class InputUi : MonoBehaviour
         {
             _gridController.CalculateGrid(int.Parse(widthInput.text), int.Parse(heightInput.text));
         });
+        
+        mixBtn.onClick.AddListener(delegate
+        {
+            StartCoroutine(nameof(MixLetters));
+        });
+    }
+
+    private IEnumerator MixLetters()
+    {
+        mixBtn.interactable = false;
+        yield return _gridController.StartCoroutine(_gridController.MixLetters());
+        mixBtn.interactable = true;
     }
 }

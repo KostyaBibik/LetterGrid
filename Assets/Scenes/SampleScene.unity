@@ -701,11 +701,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43ea8faf99d9b1f4a9208f173a559005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridElement: {fileID: 1060500045009192420, guid: 14cf019f08bb57a4c973b761e382a67e, type: 3}
-  maxHeight: 1000
-  minHeight: 64
+  gridElement: {fileID: -9038167809116183800, guid: 14cf019f08bb57a4c973b761e382a67e, type: 3}
   maxWidth: 870
-  minWidth: 64
+  maxHeight: 870
+  coefficientScaleElements: 10
+  preferredSizeElement: 64
 --- !u!1 &611921772
 GameObject:
   m_ObjectHideFlags: 0
